@@ -8,6 +8,7 @@ import mimetypes
 import pathlib
 
 class gcp:
+  @staticmethod
   def text_to_speech(mess):
     # Instantiates a client
     print("変換処理を開始します。")
