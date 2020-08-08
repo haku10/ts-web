@@ -5,10 +5,10 @@ services:
     ports:
       - "9101:8000"
     volumes:
-      - $HOME/.gcp:/root/.gcp
+      - $HOME/.gcp:/usr/gcp
       - .:/app
     depends_on:
-        - django-db
+      - django-db
     env_file:
       - .env
   django-db:
