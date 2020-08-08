@@ -1,23 +1,26 @@
 version: "3"
 services:
- django-app:
-   build: .
-   ports:
-    - "9101:8000"
-   volumes:
-    - .:/app
-   depends_on:
-    - django-db
- django-db:
-  build:
-    context: ./mysql
-    dockerfile: Dockerfile.mysql
-  ports:
-    - 9102:3306
-  tty: true
-  environment:
-    MYSQL_ROOT_PASSWORD: "password"
-  volumes:
-    - django-db:/var/lib/mysql
+  django-app:
+    build: .
+    ports:
+      - "9101:8000"
+    volumes:
+      - $HOME/.gcp:/root/.gcp
+      - .:/app
+    depends_on:
+        - django-db
+    env_file:
+      - .env
+  django-db:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile.mysql
+    ports:
+      - 9102:3306
+    tty: true
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+    volumes:
+      - django-db:/var/lib/mysql
 volumes:
   django-db:
