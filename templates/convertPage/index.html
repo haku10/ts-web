@@ -1,0 +1,32 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'convertPage/style.css' %}">
+
+<!DOCTYPE html>
+<html>
+<head lang="ja">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <form action="" method="POST">
+        {{ form.as_p }}
+        {% csrf_token %}
+        GCP Text to Speechでの音声変換<br>
+        <textarea name="convertStr" rows="4" cols="50" placeholder="変換したい文字を入力してください"></textarea><br>
+        <input type="submit" value="送信">
+        <input type="reset" value="リセット">
+    </form>
+    {% if convertStr %}
+    <p>あなたの入力した文字は</p>
+    <p>{{ convertStr }} </p>
+    <p>です。</p>
+
+    <form action="download" method="POST">
+        <input type="hidden" name="converttext" value={{ convertStr }}>
+        {% csrf_token %}
+        <hidden>
+        <input type="submit" value="ダウンロードする">
+    </form>
+    {% endif %}
+</body>
+</html>
