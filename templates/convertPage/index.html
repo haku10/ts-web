@@ -8,10 +8,15 @@
     <title></title>
 </head>
 <body>
-{{ hour }}時です。<br>
-{{ message }}
-<li>
-    <a>test</a>
-</li>
+    <form action="" method="POST">
+        {{ form.as_p }}
+        {% csrf_token %}
+        音声変換<br>
+        <textarea name="convertStr" rows="4" cols="40" placeholder="変換したい文字を入力してください"></textarea><br>
+        <input type="submit" value="送信"><input type="reset" value="リセット">
+    </form>
+    {% if convertStr %}
+    あなたの入力した文字は{{ convertStr }} です。
+{% endif %}
 </body>
 </html>
