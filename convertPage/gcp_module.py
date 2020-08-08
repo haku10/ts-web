@@ -43,4 +43,4 @@ class gcp:
       response = StreamingHttpResponse(FileWrapper(open(filename, 'rb'), chunk_size), 
           content_type='audio/mpeg') 
       response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
-      return response
+      return response, filename
