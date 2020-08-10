@@ -23,3 +23,13 @@ class DownloadView(View):
         os.remove(filename)
         return download_file
 donwload = DownloadView.as_view()
+
+class SaveView(View):
+    def post(self, request, *args, **kwargs):
+        ctext = request.POST.get('converttext')
+        gcp.cloud_storage(ctext)
+        sp = {
+        'sp': 1
+        }
+        return render(request, './convertPage/index.html', sp)
+save = SaveView.as_view()

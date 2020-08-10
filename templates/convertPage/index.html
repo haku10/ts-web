@@ -8,24 +8,33 @@
     <title></title>
 </head>
 <body>
+    {% if sp %}
+    <p>保存が完了しました</p>
+    {% endif %}
+    <h2>GCP Text to Speechでの音声変換</h2>
     <form action="" method="POST">
         {{ form.as_p }}
         {% csrf_token %}
-        GCP Text to Speechでの音声変換<br>
         <textarea name="convertStr" rows="4" cols="50" placeholder="変換したい文字を入力してください"></textarea><br>
         <input type="submit" value="送信">
         <input type="reset" value="リセット">
     </form>
     {% if convertStr %}
-    <p>あなたの入力した文字は</p>
-    <p>{{ convertStr }} </p>
-    <p>です。</p>
+    <div>あなたの入力した文字は</div>
+    <div class="outputtext">{{ convertStr }} </div>
+    <div>です。</div>
 
     <form action="download" method="POST">
         <input type="hidden" name="converttext" value={{ convertStr }}>
         {% csrf_token %}
         <hidden>
         <input type="submit" value="ダウンロードする">
+    </form>
+    <form action="save" method="POST">
+        <input type="hidden" name="converttext" value={{ convertStr }}>
+        {% csrf_token %}
+        <hidden>
+        <input type="submit" value="保存する">
     </form>
     {% endif %}
 </body>

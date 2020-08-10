@@ -1,13 +1,28 @@
 from google.cloud import texttospeech
+from google.cloud import storage
 from pytz import timezone
 from django.http import HttpResponse
 from datetime import datetime
-from django.http import StreamingHttpResponse 
+from django.http import StreamingHttpResponse
 from wsgiref.util import FileWrapper
 import mimetypes
 import pathlib
+import os
 
 class gcp:
+  @staticmethod
+  def cloud_storage(mess):
+    # 変換処理を行う
+    response, filename = gcp.text_to_speech(mess)
+    storage_client = storage.Client()
+    bucket_name = "mp3_test_mm"
+    bucket = storage_client.bucket(bucket_name)
+    now = datetime.now(timezone('Asia/Tokyo'))
+    name = now.strftime('%Y-%m-%d_%H%M%S.mp3')
+    blob = bucket.blob(name)
+    blob.upload_from_filename(filename)
+    os.remove(filename)
+
   @staticmethod
   def text_to_speech(mess):
     # Instantiates a client
