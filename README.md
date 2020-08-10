@@ -15,3 +15,12 @@ http://localhost:[ポート番号]/convertPage/
 ### 管理者用ページ
 http://localhost:[ポート番号]/admin/
 
+### マイグレーション方法
+・コンテナに乗り込む
+docker exec -it [コンテナID] bash 
+・マイグレーションファイル作成 ※Modelクラスの差分を取得
+`python manage.py makemigrations convertPage`
+`python manage.py migrate`
+テーブルを新規作成すると
+アプリ名 + _ + model名で作成される
+例) convertPage_userテーブル
