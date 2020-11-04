@@ -1,10 +1,16 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import FileResponse
+from django.contrib.auth.mixins import LoginRequiredMixin
 from convertPage.gcp_module import gcp
 import os
 
-class IndexView(View):
+class LoginView(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        return render(request, './convertPage/login.html')
+login = LoginView.as_view()
+
+class IndexView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         return render(request, './convertPage/index.html')
 
