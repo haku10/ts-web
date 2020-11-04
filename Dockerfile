@@ -4,6 +4,8 @@ RUN mkdir /app
 WORKDIR /app
 ADD requirements.txt /app/
 RUN pip install -r requirements.txt
+RUN pip install bs4
+RUN pip install scrapy
 
 # ffmpegの導入
 RUN wget https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
