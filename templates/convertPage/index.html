@@ -1,17 +1,12 @@
+{% extends "_common/header.html" %}
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/convertPage/style.css' %}">
 
-<!DOCTYPE html>
-<html>
-<head lang="ja">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
+
+{% block content %}
     {% if sp %}
     <p>保存が完了しました</p>
     {% endif %}
-    <p><a href="{% url 'logout' %}">ログアウト</a></p>
     <h2>GCP Text to Speechでの音声変換</h2>
     <form action="" method="POST">
         {{ form.as_p }}
@@ -38,5 +33,4 @@
         <input type="submit" value="保存する">
     </form>
     {% endif %}
-</body>
-</html>
+{% endblock %}

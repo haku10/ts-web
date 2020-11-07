@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" /> 
+    <title>
+      convertPage
+    </title>
+    <link href="{% static 'css/lib/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'css/_common/header.css' %}" rel="stylesheet">
+  </head>
+  <body>
+    <script type="text/javascript" src="{% static 'js/lib/jquery/jquery-3.3.1.min.js' %}"></script>
+    <div class="st-Header">
+      {% if user.is_authenticated %}
+      <p><a href="{% url 'logout' %}">ログアウト</a></p>
+      {% endif %}
+    </div>
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
