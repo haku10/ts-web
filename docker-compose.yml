@@ -22,5 +22,11 @@ services:
       MYSQL_ROOT_PASSWORD: "password"
     volumes:
       - django-db:/var/lib/mysql
+  redis:
+    image: "redis:latest"
+    ports:
+      - "9103:6379"
+    volumes:
+      - ./data/redis:/data
 volumes:
   django-db:

@@ -1,5 +1,5 @@
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'convertPage/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/convertPage/style.css' %}">
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +11,7 @@
     {% if sp %}
     <p>保存が完了しました</p>
     {% endif %}
+    <p><a href="{% url 'logout' %}">ログアウト</a></p>
     <h2>GCP Text to Speechでの音声変換</h2>
     <form action="" method="POST">
         {{ form.as_p }}
