@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.http import FileResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
-from convertPage.gcp_module import gcp
+from convertPage.service.gcp_module import gcp
 import os
 
 class LoginView(LoginRequiredMixin, View):
