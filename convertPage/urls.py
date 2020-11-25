@@ -10,7 +10,9 @@ urlpatterns = [
     path('login', auth_views.LoginView.as_view),
     path('', top.index, name='index'),
     path('texttospeech', top.texttospeech, name='texttospeech'),
-    path('download', top.donwload, name='donwload'),
+    path('speechtotext', top.speechtotext, name='speechtotext'),
+    path('download', top.download, name='download'),
+    path('upload', top.upload, name='upload'),
     path('save', top.save, name='save'),
     path('surmmarize', top.surmmarize, name='surmmarize'),
 ]
