@@ -3,6 +3,10 @@ ENV PYTHONUNBUFFERED 1
 RUN mkdir /app
 WORKDIR /app
 ADD requirements.txt /app/
+
+# pipは最新版にする
+RUN /usr/local/bin/python -m pip install --upgrade pip
+
 RUN pip install -r requirements.txt
 RUN pip install pymysql \
 bs4 \
@@ -14,7 +18,7 @@ RUN tar Jxfv ffmpeg-release-amd64-static.tar.xz
 RUN cp ./ffmpeg*amd64-static/ffmpeg /usr/local/bin
 
 # GCPのクレデンシャルファイル名を記載する
-ENV GOOGLE_APPLICATION_CREDENTIALS /usr/gcp/xxxxxxx.json
+ENV GOOGLE_APPLICATION_CREDENTIALS /usr/gcp/caramel-world-246008-a3181a394ba7.json
 # GCPのライブラリ導入
 RUN pip install --upgrade google-cloud
 RUN pip install --upgrade google-cloud-texttospeech

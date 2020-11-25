@@ -60,3 +60,8 @@ class gcp:
           content_type='audio/mpeg') 
       response['Content-Disposition'] = 'attachment; filename={0}'.format(filename)
       return response, filename
+
+  @staticmethod
+  def speechtotext(mess):
+    # ここにエンコード + Speech To TextへのAPIリクエストを送信予定
+    print("テキスト変換処理を開始します。")

@@ -1,0 +1,17 @@
+{% extends "_common/header.html" %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/convertPage/style.css' %}">
+
+
+{% block content %}
+    {% if sp %}
+    <p>保存が完了しました</p>
+    {% endif %}
+    <h2>GCP Speech To Textでの音声変換</h2>
+    <form action="upload" method="POST" enctype="multipart/form-data">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="file" name="speech"" accept=".mp3,.wav">
+        <input type="submit" value="送信">
+    </form>
+{% endblock %}

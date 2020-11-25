@@ -4,6 +4,8 @@ from django.http import FileResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from convertPage.service.gcp_module import gcp
 import os
+import base64
+import wave
 
 class LoginView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
@@ -26,6 +28,11 @@ class TextToSpeechView(LoginRequiredMixin, View):
         return render(request, './convertPage/texttospeech.html', text)
 texttospeech = TextToSpeechView.as_view()
 
+class SpeechToText(LoginRequiredMixin, View):
+    def get(self, request, *args, **kwargs):
+        return render(request, './convertPage/speechtotext.html')
+speechtotext = SpeechToText.as_view()
+
 class DownloadView(View):
     def post(self, request, *args, **kwargs):
         ctext = request.POST.get('converttext')
@@ -33,7 +40,7 @@ class DownloadView(View):
         # ダウンロードファイルは削除
         os.remove(filename)
         return download_file
-donwload = DownloadView.as_view()
+download = DownloadView.as_view()
 
 class SaveView(View):
     def post(self, request, *args, **kwargs):
@@ -44,6 +51,19 @@ class SaveView(View):
         }
         return render(request, './convertPage/index.html', sp)
 save = SaveView.as_view()
+
+class UploadView(View):
+    def post(self, request, *args, **kwargs):
+        if request.method == 'POST' and request.FILES['speech']:
+            music = request.FILES['speech']
+            print("音声変換 = " + music.name)
+            print(music.read())
+        # download_file, filename = gcp.text_to_speech(ctext)
+        # # ダウンロードファイルは削除
+        # os.remove(filename)
+        # return download_file
+        return render(request, './convertPage/speechtotext.html')
+upload = UploadView.as_view()
 
 class SurmmarizeView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
