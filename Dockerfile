@@ -22,6 +22,7 @@ ENV GOOGLE_APPLICATION_CREDENTIALS /usr/gcp/xxxxxxx.json
 # GCPのライブラリ導入
 RUN pip install --upgrade google-cloud
 RUN pip install --upgrade google-cloud-texttospeech
+RUN pip install google-cloud-speech
 ADD . /app/
 CMD python3 manage.py runserver 0.0.0.0:8000
 EXPOSE 8000

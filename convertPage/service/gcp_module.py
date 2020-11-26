@@ -42,7 +42,7 @@ class gcp:
       # Select the type of audio file you want returned
 
     audio_config = texttospeech.AudioConfig(
-    audio_encoding=texttospeech.AudioEncoding.MP3
+    audio_encoding=texttospeech.AudioEncoding.LINEAR16
       )
 
     # Perform the text-to-speech request on the text input with the selected
@@ -53,7 +53,7 @@ class gcp:
 
     # The response's audio_content is binary.
     now = datetime.now(timezone('Asia/Tokyo'))
-    filename = now.strftime('%Y-%m-%d_%H%M%S.mp3')
+    filename = now.strftime('%Y-%m-%d_%H%M%S.wav')
     with open(filename, 'wb') as fh:
       fh.write(response.audio_content)
       chunk_size = 8192
@@ -74,8 +74,8 @@ class gcp:
 
     config = speech.RecognitionConfig(
         encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
-        sample_rate_hertz=16000,
-        language_code="ja-JP",
+        sample_rate_hertz=24000,
+        language_code='ja-JP',
     )
     operation = client.long_running_recognize(config=config, audio=audio)
 
@@ -84,7 +84,6 @@ class gcp:
 
     # Each result is for a consecutive portion of the audio. Iterate through
     # them to get the transcripts for the entire audio file.
+    response = client.recognize(config=config, audio=audio)
     for result in response.results:
-        # The first alternative is the most likely one for this portion.
-        print(u"Transcript: {}".format(result.alternatives[0].transcript))
-        print("Confidence: {}".format(result.alternatives[0].confidence))
+      print("Transcript: {}".format(result.alternatives[0].transcript))
