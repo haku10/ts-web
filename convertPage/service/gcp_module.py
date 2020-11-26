@@ -1,4 +1,5 @@
 from google.cloud import texttospeech
+from google.cloud import speech
 from google.cloud import storage
 from pytz import timezone
 from django.http import HttpResponse
@@ -62,6 +63,28 @@ class gcp:
       return response, filename
 
   @staticmethod
-  def speechtotext(mess):
+  def speechtotext(file):
     # ここにエンコード + Speech To TextへのAPIリクエストを送信予定
     print("テキスト変換処理を開始します。")
+    client = speech.SpeechClient()
+
+    content = file.read()
+
+    audio = speech.RecognitionAudio(content=content)
+
+    config = speech.RecognitionConfig(
+        encoding=speech.RecognitionConfig.AudioEncoding.LINEAR16,
+        sample_rate_hertz=16000,
+        language_code="ja-JP",
+    )
+    operation = client.long_running_recognize(config=config, audio=audio)
+
+    print("Waiting for operation to complete...")
+    response = operation.result(timeout=90)
+
+    # Each result is for a consecutive portion of the audio. Iterate through
+    # them to get the transcripts for the entire audio file.
+    for result in response.results:
+        # The first alternative is the most likely one for this portion.
+        print(u"Transcript: {}".format(result.alternatives[0].transcript))
+        print("Confidence: {}".format(result.alternatives[0].confidence))
