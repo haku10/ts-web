@@ -55,13 +55,9 @@ save = SaveView.as_view()
 class UploadView(View):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST' and request.FILES['speech']:
-            music = request.FILES['speech']
-            print("音声変換 = " + music.name)
-            print(music.read())
-        # download_file, filename = gcp.text_to_speech(ctext)
-        # # ダウンロードファイルは削除
-        # os.remove(filename)
-        # return download_file
+            file = request.FILES['speech']
+            print("音声変換 = " + file.name)
+            gcp.speechtotext(file)
         return render(request, './convertPage/speechtotext.html')
 upload = UploadView.as_view()
 

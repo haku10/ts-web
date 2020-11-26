@@ -18,7 +18,7 @@ RUN tar Jxfv ffmpeg-release-amd64-static.tar.xz
 RUN cp ./ffmpeg*amd64-static/ffmpeg /usr/local/bin
 
 # GCPのクレデンシャルファイル名を記載する
-ENV GOOGLE_APPLICATION_CREDENTIALS /usr/gcp/caramel-world-246008-a3181a394ba7.json
+ENV GOOGLE_APPLICATION_CREDENTIALS /usr/gcp/xxxxxxx.json
 # GCPのライブラリ導入
 RUN pip install --upgrade google-cloud
 RUN pip install --upgrade google-cloud-texttospeech
