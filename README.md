@@ -13,8 +13,10 @@ https://console.cloud.google.com/
 ホスト側のマシンの`$HOME/.gcp`にクレデンシャルファイルを配置する
 
 .envファイルにGOOGLE_APPLICATION_CREDENTIALSを記載する
+
 例)
-GOOGLE_APPLICATION_CREDENTIALS /usr/gcp/XXXX.json
+`GOOGLE_APPLICATION_CREDENTIALS /usr/gcp/XXXX.json`
+
 ※ ホスト側の`$HOME/.gcp`がコンテナの`/usr/gcp`にマウントされているため、
 上記の設定でコンテナ側の環境変数として設定される
 
