@@ -1,36 +1,50 @@
 {% extends "_common/header.html" %}
 {% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/convertPage/style.css' %}">
-
-
 {% block content %}
     {% if sp %}
     <p>保存が完了しました</p>
     {% endif %}
-    <h2>GCP Text to Speechでの音声変換</h2>
-    <form action="" method="POST">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <textarea name="convertStr" rows="4" cols="50" placeholder="変換したい文字を入力してください"></textarea><br>
-        <input type="submit" value="送信">
-        <input type="reset" value="リセット">
-    </form>
-    {% if convertStr %}
-    <div>あなたの入力した文字は</div>
-    <div class="outputtext">{{ convertStr }} </div>
-    <div>です。</div>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/convertPage/style.css' %}">
 
-    <form action="download" method="POST">
-        <input type="hidden" name="converttext" value={{ convertStr }}>
-        {% csrf_token %}
-        <hidden>
-        <input type="submit" value="ダウンロードする">
-    </form>
-    <form action="save" method="POST">
-        <input type="hidden" name="converttext" value={{ convertStr }}>
-        {% csrf_token %}
-        <hidden>
-        <input type="submit" value="保存する">
-    </form>
-    {% endif %}
+    <script type="text/javascript" src="{% static 'js/convertPage/texttospeech.js' %}"></script>
+
+    <h2>GCP Text to Speechでの音声変換</h2>
+    <div>
+        <h4>CSVファイルによる音声登録</h3>
+        <div>
+            <input type="file" id="csvtext"" accept=".csv">
+        </div>
+        <div>
+            <button id="upload_btn" type="button">アップロード</button>
+        </div>
+        <div id="resultGET"></div>
+    </div>
+    <div class="text">
+        <h4>テキスト入力による音声登録</h3>
+        <form action="" method="POST">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <textarea name="convertStr" rows="4" cols="50" placeholder="変換したい文字を入力してください"></textarea><br>
+            <input type="submit" value="送信">
+            <input type="reset" value="リセット">
+        </form>
+        {% if convertStr %}
+        <div>あなたの入力した文字は</div>
+        <div class="outputtext">{{ convertStr }} </div>
+        <div>です。</div>
+
+        <form action="download" method="POST">
+            <input type="hidden" name="converttext" value={{ convertStr }}>
+            {% csrf_token %}
+            <hidden>
+            <input type="submit" value="ダウンロードする">
+        </form>
+        <form action="save" method="POST">
+            <input type="hidden" name="converttext" value={{ convertStr }}>
+            {% csrf_token %}
+            <hidden>
+            <input type="submit" value="保存する">
+        </form>
+        {% endif %}
+    </div>
 {% endblock %}

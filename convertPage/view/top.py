@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.http import FileResponse
+from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from convertPage.service.gcp_module import gcp
 import os
 import base64
 import wave
+import logging
+
+logger = logging.getLogger('development')
 
 class LoginView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
@@ -56,7 +60,6 @@ class UploadView(View):
     def post(self, request, *args, **kwargs):
         if request.method == 'POST' and request.FILES['speech']:
             file = request.FILES['speech']
-            print("音声変換 = " + file.name)
             gcp.speechtotext(file)
         return render(request, './convertPage/speechtotext.html')
 upload = UploadView.as_view()
@@ -64,5 +67,11 @@ upload = UploadView.as_view()
 class SurmmarizeView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         return render(request, './convertPage/surmmarize.html')
-
 surmmarize = SurmmarizeView.as_view()
+
+def csv_parse(request):
+    if request.method == 'POST':
+        data1 = request.FILES['csvfile']
+        print("ファイル= ")
+        print(data1.read())
+        return HttpResponse(data1)
