@@ -9,6 +9,15 @@ docker-compose run django-app django-admin.py startproject [任意のプロジ�
 https://console.cloud.google.com/
 に自身のアカウントでログインし、Text To Speechの認証を設定しておく。
 
+## GCPのクレデンシャルファイル名をenvに設定する
+ホスト側のマシンの`$HOME/.gcp`にクレデンシャルファイルを配置する
+
+.envファイルにGOOGLE_APPLICATION_CREDENTIALSを記載する
+例)
+GOOGLE_APPLICATION_CREDENTIALS /usr/gcp/XXXX.json
+※ ホスト側の`$HOME/.gcp`がコンテナの`/usr/gcp`にマウントされているため、
+上記の設定でコンテナ側の環境変数として設定される
+
 ### マイグレーション方法
 ・コンテナに乗り込む
 docker exec -it [コンテナID] bash 
