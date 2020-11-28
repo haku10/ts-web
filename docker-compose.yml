@@ -1,12 +1,15 @@
 version: "3"
 services:
   django-app:
-    build: .
+    build:
+      context: .
+      args:
+        GOOGLE_APPLICATION_CREDENTIALS: $GOOGLE_APPLICATION_CREDENTIALS
     ports:
       - "9101:8000"
     volumes:
       - $HOME/.gcp:/usr/gcp
-      - .:/app
+      - ./:/app
     tty: true
     stdin_open: true
     depends_on:
