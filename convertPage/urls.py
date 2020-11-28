@@ -15,4 +15,6 @@ urlpatterns = [
     path('upload', top.upload, name='upload'),
     path('save', top.save, name='save'),
     path('surmmarize', top.surmmarize, name='surmmarize'),
+    # Ajaxでの処理
+    path("texttospeech/upload", top.csv_parse, name='csv_parse'),
 ]
