@@ -24,7 +24,8 @@ $('#upload_btn').on('click', function(){
     timeout: 10000,
   }).done(function(data) {
       // 通信成功時の処理を記述
-      $('#resultGET').text('POST処理成功：' + data);
+      $('#resultGET').text('POST処理成功');
+      texttable(data);
   }).fail(function() {
       // 通信失敗時の処理を記述
       $('#resultGET').text('POST処理失敗.');
@@ -33,24 +34,48 @@ $('#upload_btn').on('click', function(){
 });
 
 /**
- * 
- * Cookieから必要なパラメータを取得するために使用
- * ※ ajaxするためにCSRFトークンを設定するために使用している
- * // TODO 共通化する
+ * 取得データからテキストデータのテーブルを作成する処理
  * 
  */
-function getCookie(c_name)
+function texttable(data)
 {
-    if (document.cookie.length > 0)
-    {
-        c_start = document.cookie.indexOf(c_name + "=");
-        if (c_start != -1)
-        {
-            c_start = c_start + c_name.length + 1;
-            c_end = document.cookie.indexOf(";", c_start);
-            if (c_end == -1) c_end = document.cookie.length;
-            return unescape(document.cookie.substring(c_start,c_end));
-        }
-    }
-    return "";
- }
+  const data1 = data;
+  const obj = JSON.parse(data1);
+  console.log(obj.data);
+  const colNames = ["", "id","テキスト"];
+  //jqGridで表示する
+  $("#sample1").jqGrid({
+    data: obj.data,
+    datatype: "local",
+    colNames : colNames,  
+    colModel:[
+      { name: 'select' , index: 'select', width: 20, align: 'center', resizable: false, sortable: false,
+                formatter: function (cellValue, option) {
+                    return '<input type="radio" name="radio_' + option.gid + '" onclick=\"selectRow(this);\"/>';
+                }
+            },
+      {index:'id', name:'id', width:'160', align:'center'},
+      {index:'text', name:'text', width:'160', align:'center'},
+     ],
+    height:130,
+  });
+
+  // ダウンロードボタン作成
+  form = "<form action='download' method='POST'>";
+  form += "<input type='hidden' name='converttext'></input>";
+  form += "<input type='hidden' name='csrfmiddlewaretoken'></input>";
+  form += "<input type='submit' value='ダウンロードする'></input>";
+  form += "</form>"
+  $("#texttospeechbtn").append(form);
+  $('input[name="csrfmiddlewaretoken"]').val(getCookie("csrftoken"));
+}
+
+function selectRow(radio) {
+  // クリックしたラジオボタンの行を選択状態にする
+  var rowid = $(radio).closest('tr').attr('id');
+  var test = $("#sample1").jqGrid("getRowData", rowid);
+  console.log(test.text);
+  $('input[name="converttext"]').val(test.text);
+  var tbl = $("#sample1");
+  tbl.jqGrid('setSelection', rowid);
+}
