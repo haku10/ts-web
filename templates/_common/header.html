@@ -6,11 +6,14 @@
     <title>
       convertPage
     </title>
-    <link href="{% static 'css/lib/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/_common/header.css' %}" rel="stylesheet">
+    <link media="screen" href="{% static 'css/lib/bootstrap/bootstrap.min.css' %}" rel="stylesheet">
+    <link media="screen" href="{% static 'css/lib/jqgrid/ui.jqgrid.css' %}" rel="stylesheet">
+    <link media="screen" href="{% static 'css/_common/header.css' %}" rel="stylesheet">
   </head>
   <body>
     <script type="text/javascript" src="{% static 'js/lib/jquery/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lib/jquery/grid.locale-ja.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/lib/jquery/jquery.jqGrid.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/_common/header.js' %}"></script>
     <nav class="navbar navbar-dark bg-dark">
       {% if user.is_authenticated %}

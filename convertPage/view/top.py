@@ -4,12 +4,12 @@ from django.http import FileResponse
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from convertPage.service.gcp_module import gcp
+from convertPage.service.parse_csv import parse_csv
 from io import TextIOWrapper, StringIO
 import os
 import base64
 import wave
 import logging
-import csv
 
 logger = logging.getLogger('development')
 
@@ -74,7 +74,6 @@ surmmarize = SurmmarizeView.as_view()
 def csv_parse(request):
     if request.method == 'POST':
         data1 = TextIOWrapper(request.FILES['csvfile'].file, encoding='utf-8')
-        csvdata = csv.reader(data1)
-        for row in csvdata:
-            print(row)
-        return HttpResponse(data1)
+        response_json = parse_csv.csv_parse_speechtext(data1)
+        print(response_json)
+        return HttpResponse(response_json)
