@@ -27,8 +27,8 @@
             {{ form.as_p }}
             {% csrf_token %}
             <textarea name="convertStr" rows="4" cols="50" placeholder="変換したい文字を入力してください"></textarea><br>
-            <input type="submit" value="送信">
-            <input type="reset" value="リセット">
+            <input type="submit" value="送信" />
+            <input type="reset" value="リセット" />
         </form>
         {% if convertStr %}
         <div>あなたの入力した文字は</div>
@@ -36,16 +36,16 @@
         <div>です。</div>
 
         <form action="download" method="POST">
-            <input type="hidden" name="converttext" value={{ convertStr }}>
+            <input type="hidden" name="converttext" value="{{ convertStr }}" />
             {% csrf_token %}
             <hidden>
-            <input type="submit" value="ダウンロードする">
+            <input type="submit" value="ダウンロードする" />
         </form>
         <form action="save" method="POST">
-            <input type="hidden" name="converttext" value={{ convertStr }}>
+            <input type="hidden" name="converttext" value="{{ convertStr }}" />
             {% csrf_token %}
             <hidden>
-            <input type="submit" value="保存する">
+            <input type="submit" value="保存する" />
         </form>
         {% endif %}
     </div>
