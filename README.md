@@ -41,3 +41,14 @@ http://localhost:[ポート番号]/
 
 ### 管理者用ページ
 http://localhost:[ポート番号]/admin/
+
+
+### 変数の命名規則
+```
+フロントエンド(HTML,CSS,JavaScript) キャメルケース
+バックエンド(python) スネークケース
+```
+
+#### Text To Speech
+`参考リファレンス`
+`https://googleapis.dev/python/texttospeech/latest/texttospeech_v1/types.html?highlight=speed`

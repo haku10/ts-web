@@ -41,8 +41,8 @@ speechtotext = SpeechToText.as_view()
 
 class DownloadView(View):
     def post(self, request, *args, **kwargs):
-        ctext = request.POST.get('converttext')
-        download_file, filename = gcp.text_to_speech(ctext)
+        # リクエストから調整パラメータを抽出 -> 音声データ作成
+        download_file, filename = gcp.text_to_speech(request.POST)
         # ダウンロードファイルは削除
         os.remove(filename)
         return download_file
@@ -50,8 +50,8 @@ download = DownloadView.as_view()
 
 class SaveView(View):
     def post(self, request, *args, **kwargs):
-        ctext = request.POST.get('converttext')
-        gcp.cloud_storage(ctext)
+        # テキストを音声化 -> 音声データ作成、ストレージに保存
+        gcp.cloud_storage(request.POST)
         sp = {
         'sp': 1
         }

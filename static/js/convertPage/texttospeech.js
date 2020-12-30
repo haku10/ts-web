@@ -4,33 +4,45 @@ jQuery(function($) {
   $.ajaxSetup({
     headers: { "X-CSRFToken": getCookie("csrftoken") }
 });
+
   /**
    *　csvファイルアップロード処理
    *  // TODO ajaxの処理は共通化する
    * 
    */ 
-$('#upload_btn').on('click', function(){
-  var formData = new FormData();
-  var csvfile = $('#csvtext')[0].files[0];
-  formData.append('csvfile', csvfile);
-  // Ajax通信を開始
-  $.ajax({
-    url: "texttospeech/upload",
-    type: 'POST',
-    data: formData,
-    processData: false,
-    contentType: false,
-    enctype:  'multipart/form-data',
-    timeout: 10000,
-  }).done(function(data) {
-      // 通信成功時の処理を記述
-      $('#resultGET').text('POST処理成功');
-      texttable(data);
-  }).fail(function() {
-      // 通信失敗時の処理を記述
-      $('#resultGET').text('POST処理失敗.');
+  $('#uploadBtn').on('click', function(){
+    var formData = new FormData();
+    var csvfile = $('#csvtext')[0].files[0];
+    formData.append('csvfile', csvfile);
+    // Ajax通信を開始
+    $.ajax({
+      url: "texttospeech/upload",
+      type: 'POST',
+      data: formData,
+      processData: false,
+      contentType: false,
+      enctype:  'multipart/form-data',
+      timeout: 10000,
+    }).done(function(data) {
+        // 通信成功時の処理を記述
+        $('#resultGET').text('POST処理成功');
+        texttable(data);
+    }).fail(function() {
+        // 通信失敗時の処理を記述
+        $('#resultGET').text('POST処理失敗.');
+    });
+    }
+  );
+
+  /**
+   *　音声速度調整バーの設定
+   *  
+   */ 
+  $('#textSpeed').on('change', function(){
+    let speed = $('#textSpeed').val();
+    console.log(speed);
+    $('#currentSpeed').val(speed);
   });
-  })
 });
 
 /**
@@ -62,20 +74,19 @@ function texttable(data)
 
   // ダウンロードボタン作成
   form = "<form action='download' method='POST'>";
-  form += "<input type='hidden' name='converttext'></input>";
-  form += "<input type='hidden' name='csrfmiddlewaretoken'></input>";
+  form += "<input type='hidden' name='convertText'></input>";
+  form += "<input type='hidden' name='csrfMiddleWareToken'></input>";
   form += "<input type='submit' value='ダウンロードする'></input>";
   form += "</form>"
-  $("#texttospeechbtn").append(form);
-  $('input[name="csrfmiddlewaretoken"]').val(getCookie("csrftoken"));
+  $("#textToSpeechBtn").append(form);
+  $('input[name="csrfMiddleWareToken"]').val(getCookie("csrftoken"));
 }
 
 function selectRow(radio) {
   // クリックしたラジオボタンの行を選択状態にする
   var rowid = $(radio).closest('tr').attr('id');
-  var test = $("#sample1").jqGrid("getRowData", rowid);
-  console.log(test.text);
-  $('input[name="converttext"]').val(test.text);
+  var cellData = $("#sample1").jqGrid("getRowData", rowid);
+  $('input[name="convertText"]').val(cellData.text);
   var tbl = $("#sample1");
   tbl.jqGrid('setSelection', rowid);
 }
