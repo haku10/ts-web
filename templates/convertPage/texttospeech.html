@@ -15,11 +15,11 @@
             <input type="file" id="csvtext"" accept=".csv">
         </div>
         <div>
-            <button id="upload_btn" type="button">アップロード</button>
+            <button id="uploadBtn" type="button">アップロード</button>
         </div>
         <div id="resultGET"></div>
         <table id="sample1"></table>
-        <div id="texttospeechbtn"></div>
+        <div id="textToSpeechBtn"></div>
     </div>
     <div class="text">
         <h4>テキスト入力による音声登録</h3>
@@ -36,13 +36,19 @@
         <div>です。</div>
 
         <form action="download" method="POST">
-            <input type="hidden" name="converttext" value="{{ convertStr }}" />
+            <div>
+                <input type="hidden" name="convertText" value="{{ convertStr }}" />
+            </div>
+            <div>
+                <input type="range" id="textSpeed" name="textSpeed" value="1" min="0.5" max="4" step="0.5" />
+                <output id="currentSpeed">1</output>
+            </div>
             {% csrf_token %}
             <hidden>
             <input type="submit" value="ダウンロードする" />
         </form>
         <form action="save" method="POST">
-            <input type="hidden" name="converttext" value="{{ convertStr }}" />
+            <input type="hidden" name="convertText" value="{{ convertStr }}" />
             {% csrf_token %}
             <hidden>
             <input type="submit" value="保存する" />

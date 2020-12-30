@@ -12,9 +12,9 @@ import os
 
 class gcp:
   @staticmethod
-  def cloud_storage(mess):
+  def cloud_storage(request):
     # 変換処理を行う
-    response, filename = gcp.text_to_speech(mess)
+    response, filename = gcp.text_to_speech(request)
     storage_client = storage.Client()
     bucket_name = "mp3_test_mm"
     bucket = storage_client.bucket(bucket_name)
@@ -25,24 +25,27 @@ class gcp:
     os.remove(filename)
 
   @staticmethod
-  def text_to_speech(mess):
+  def text_to_speech(request):
     # Instantiates a client
     print("変換処理を開始します。")
+    # 変換テキストを抽出
+    text_message = request.get('convertText')
+
+    # スピードを抽出
+    text_speed = float(request.get('textSpeed'))
     client = texttospeech.TextToSpeechClient()
 
     # Set the text input to be synthesized
-    synthesis_input = texttospeech.SynthesisInput(text=mess)
-    
+    synthesis_input = texttospeech.SynthesisInput(text=text_message)
+
     # Build the voice request, select the language code ("en-US") and the ssm
     # voice gender ("neutral")
     voice = texttospeech.VoiceSelectionParams(
       language_code="ja-JP", ssml_gender=texttospeech.SsmlVoiceGender.NEUTRAL
       )
 
-      # Select the type of audio file you want returned
-
     audio_config = texttospeech.AudioConfig(
-    audio_encoding=texttospeech.AudioEncoding.LINEAR16
+    audio_encoding=texttospeech.AudioEncoding.LINEAR16, speaking_rate=text_speed
       )
 
     # Perform the text-to-speech request on the text input with the selected
