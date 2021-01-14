@@ -50,5 +50,5 @@ http://localhost:[ポート番号]/admin/
 ```
 
 #### Text To Speech
-`参考リファレンス`
+参考リファレンス
 `https://googleapis.dev/python/texttospeech/latest/texttospeech_v1/types.html?highlight=speed`
