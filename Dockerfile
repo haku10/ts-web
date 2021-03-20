@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.9
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /app
 WORKDIR /app
@@ -9,6 +9,7 @@ RUN /usr/local/bin/python -m pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 RUN pip install pymysql \
+redis \
 bs4 \
 scrapy
 
