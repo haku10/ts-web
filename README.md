@@ -22,7 +22,7 @@ https://console.cloud.google.com/
 
 ### マイグレーション方法
 ・コンテナに乗り込む
-docker exec -it [コンテナID] bash 
+`docker exec -it [コンテナID] bash`
 ・マイグレーションファイル作成 ※Modelクラスの差分を取得
 `python manage.py makemigrations convertPage`
 

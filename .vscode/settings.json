@@ -4,6 +4,9 @@
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "ms-python.python"
   },
+  "[markdown]": {
+    "editor.formatOnSave": false,
+  },
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
