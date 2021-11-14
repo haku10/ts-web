@@ -3,5 +3,4 @@ FROM mysql:5.7
 ENV MYSQL_DATABASE=tswebdb \
     MYSQL_HOST=127.0.0.1 \
     MYSQL_ROOT_HOST=% \
-    MYSQL_ROOT_PASSWORD=password \
-    MYSQL_USER=root
+    MYSQL_ROOT_PASSWORD=password

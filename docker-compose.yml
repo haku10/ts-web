@@ -24,7 +24,11 @@ services:
       - 9102:3306
     tty: true
     environment:
-      MYSQL_ROOT_PASSWORD: "password"
+      TZ: "Asia/Tokyo"
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: tswebdb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     volumes:
       - django-db:/var/lib/mysql
   redis:
